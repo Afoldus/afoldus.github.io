@@ -117,12 +117,38 @@ function loadAll() {
     }
   }, 10000);
 }
+var _bgIndex = 0;
+var _bgTimer = null;
+function shuffleArray(a) {
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i];
+    a[i] = a[j];
+    a[j] = t;
+  }
+  return a;
+}
+function setBackgroundImage(filename) {
+  $(".background").css("background-image", 'url("images/' + filename + '")');
+}
 function loadBackground() {
-  if (Config.backgroundImage) {
-    $(".background").css(
-      "background-image",
-      'url("images/' + Config.backgroundImage + '")'
-    );
+  if (Config.backgroundImages && Config.backgroundImages.length > 0) {
+    var images = Config.backgroundImages.slice(0);
+    if (Config.shuffleBackgrounds) {
+      images = shuffleArray(images);
+    }
+    _bgIndex = 0;
+    setBackgroundImage(images[_bgIndex]);
+    if (_bgTimer) {
+      clearInterval(_bgTimer);
+    }
+    var interval = Config.backgroundImageInterval || 8000;
+    _bgTimer = setInterval(function() {
+      _bgIndex = (_bgIndex + 1) % images.length;
+      setBackgroundImage(images[_bgIndex]);
+    }, interval);
+  } else if (Config.backgroundImage) {
+    setBackgroundImage(Config.backgroundImage);
   }
 }
 function setLoad(percentage) {

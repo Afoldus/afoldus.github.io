@@ -38,10 +38,35 @@ Config.announceMessages = [
 Config.announcementLength = 3000;
 
 /**
- * Image Filename
- * DROP IMAGE IN "images" FOLDER
+ * Single background image filename (optional)
+ * OR use backgroundImages below for multiple images.
+ * Drop images in the "images" folder.
  */
 Config.backgroundImage = "";
+
+/**
+ * Multiple background images (optional)
+ * Example: ["photo1.jpg", "photo2.png", "city.webp"]
+ * If provided, these will rotate on the background.
+ */
+Config.backgroundImages = [
+  "1.png",
+  "2.png",
+  "3.png",
+  "4.png",
+  "5.png",
+  "6.png"
+];
+
+/**
+ * Slideshow interval in milliseconds (only if backgroundImages is used)
+ */
+Config.backgroundImageInterval = 8000;
+
+/**
+ * Shuffle the backgroundImages order once on load
+ */
+Config.shuffleBackgrounds = true;
 
 /**
  * Enable debug messages?
